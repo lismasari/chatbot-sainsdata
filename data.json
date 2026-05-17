@@ -1,0 +1,402 @@
+[
+  {
+    "kategori": "sapaan",
+    "keywords": [
+      "halo",
+      "hai",
+      "hello",
+      "hi",
+      "assalamualaikum",
+      "selamat pagi",
+      "selamat siang",
+      "selamat malam"
+    ],
+    "jawaban": "Halo 👋 Selamat datang di Chatbot PMB Program Studi Sains Data Universitas PGRI Sumatera Barat. Silakan tanyakan informasi mengenai biaya kuliah, pendaftaran, fasilitas, beasiswa, prospek kerja, dan informasi lainnya."
+  },
+
+  {
+    "kategori": "deskripsi_prodi",
+    "keywords": [
+      "apa itu program studi sains data",
+      "deskripsi program studi sains data",
+      "tentang program studi sains data",
+      "apa itu sains data",
+      "penjelasan program studi sains data"
+    ],
+    "jawaban": "Program Studi Sains Data Fakultas Sains dan Teknologi Universitas PGRI Sumatera Barat bertujuan menciptakan lulusan yang memiliki kemampuan membaca, menganalisis, dan menggunakan informasi big data untuk memenuhi kebutuhan teknologi informasi modern."
+  },
+
+  {
+    "kategori": "akreditasi",
+    "keywords": [
+      "bagaimana akreditasi program studi",
+      "status akreditasi program studi",
+      "program studi terakreditasi apa",
+      "apakah prodi sudah terakreditasi",
+      "akreditasi sains data"
+    ],
+    "jawaban": "Program Studi Sains Data Universitas PGRI Sumatera Barat telah terakreditasi Baik."
+  },
+
+  {
+    "kategori": "visi",
+    "keywords": [
+      "apa visi program studi",
+      "visi program studi sains data",
+      "visi prodi",
+      "visi sains data"
+    ],
+    "jawaban": "Menjadi Program Studi yang menghasilkan lulusan yang unggul di bidang Sains Data Artificial Intelligence yang inovatif dan kompetitif di tingkat nasional tahun 2051."
+  },
+
+  {
+    "kategori": "misi",
+    "keywords": [
+      "apa misi program studi",
+      "misi program studi sains data",
+      "misi prodi",
+      "misi sains data"
+    ],
+    "jawaban": "Misi Program Studi meliputi pendidikan berbasis hard skill dan soft skill, pengembangan penelitian dan pengabdian di bidang Sains Data, pengembangan IPTEKS inovatif, tata kelola program studi yang akuntabel, serta pengembangan kerja sama akademik dan non akademik."
+  },
+
+  {
+    "kategori": "profil_lulusan_ai",
+    "keywords": [
+      "apa keahlian artificial intelligence",
+      "keahlian artificial intelligence",
+      "bidang artificial intelligence",
+      "apa itu artificial intelligence",
+      "kemampuan artificial intelligence"
+    ],
+    "jawaban": "Lulusan memiliki kemampuan menggunakan pendekatan Artificial Intelligence atau kecerdasan buatan untuk memberikan solusi pada dunia industri dan masyarakat."
+  },
+
+  {
+    "kategori": "profil_lulusan_programmer",
+    "keywords": [
+      "apa kemampuan programmer",
+      "bidang programmer",
+      "keahlian programmer",
+      "kemampuan pemrograman",
+      "apa itu programmer"
+    ],
+    "jawaban": "Lulusan memiliki kemampuan merancang dan membuat aplikasi sains data menggunakan bahasa pemrograman tertentu."
+  },
+
+  {
+    "kategori": "profil_lulusan_konsultan",
+    "keywords": [
+      "apa kemampuan konsultan data",
+      "apa itu konsultan data",
+      "keahlian konsultan data",
+      "bidang konsultan data"
+    ],
+    "jawaban": "Lulusan memiliki kemampuan merekomendasikan pelatihan, teknik, teknologi, dan strategi terbaik dalam penggunaan sistem dan teknologi."
+  },
+
+  {
+    "kategori": "profesi_lulusan",
+    "keywords": [
+      "lulusan sains data kerja apa",
+      "apa prospek kerja sains data",
+      "profesi lulusan sains data",
+      "karir lulusan sains data",
+      "pekerjaan lulusan sains data"
+    ],
+    "jawaban": "Lulusan dapat bekerja sebagai Artificial Intelligence Engineer, Machine Learning Engineer, Data Scientist, Business Intelligence Analyst, Data Engineer, Data Consultant, dan Big Data Engineer."
+  },
+
+  {
+    "kategori": "fasilitas",
+    "keywords": [
+      "apa fasilitas kampus",
+      "fasilitas program studi",
+      "sarana kampus",
+      "apa saja fasilitas kampus",
+      "fasilitas sains data"
+    ],
+    "jawaban": "Fasilitas kampus meliputi gedung perkuliahan, aula serba guna, perpustakaan, laboratorium komputer, laboratorium Big Data dan Artificial Intelligence, laboratorium TOEFL, laboratorium bahasa, taman digital, ruang classroom, ruang kemahasiswaan, masjid kampus, dan fasilitas lainnya."
+  },
+
+  {
+    "kategori": "laboratorium_ai",
+    "keywords": [
+      "apakah ada laboratorium artificial intelligence",
+      "apakah ada laboratorium big data",
+      "laboratorium ai",
+      "laboratorium big data",
+      "lab artificial intelligence"
+    ],
+    "jawaban": "Program Studi memiliki Laboratorium Big Data dan Artificial Intelligence untuk mendukung kegiatan praktikum dan pembelajaran mahasiswa."
+  },
+
+  {
+    "kategori": "sertifikasi_dosen",
+    "keywords": [
+      "sertifikasi dosen",
+      "kompetensi dosen",
+      "dosen bersertifikat",
+      "sertifikat internasional dosen",
+      "sertifikat nasional dosen"
+    ],
+    "jawaban": "Dosen memiliki sertifikasi internasional dan nasional di bidang Data Science, Artificial Intelligence Engineer IBM, Applied Data Science with Python, Internet of Things, Python, R, SQL, IT Multimedia BNSP, dan Data Scientist BNSP."
+  },
+
+  {
+    "kategori": "dosen",
+    "keywords": [
+      "siapa dosen program studi",
+      "nama dosen sains data",
+      "staff program studi",
+      "tenaga pengajar",
+      "dosen sains data"
+    ],
+    "jawaban": "Dosen Program Studi Sains Data terdiri dari Dr. Zulfaneti M.Si sebagai Ketua Prodi, Satrio Junaidi M.Kom sebagai Sekretaris Prodi, Dr. Delsi K M.Si, Ainil Mardiyah M.Si, Irfan Fadhli M.Kom, Nia Febriyani M.Kom, dan Ronal Hasman S.S sebagai Admin Prodi."
+  },
+
+  {
+    "kategori": "kipk",
+    "keywords": [
+      "apakah ada beasiswa kipk",
+      "apakah ada kip kuliah",
+      "beasiswa kipk",
+      "jalur kipk",
+      "beasiswa kip"
+    ],
+    "jawaban": "Program Studi menyediakan jalur KIP-K sesuai dengan persyaratan yang ditetapkan oleh Kementerian Pendidikan dan Kebudayaan."
+  },
+
+  {
+    "kategori": "jalur_prestasi",
+    "keywords": [
+      "apakah ada jalur prestasi",
+      "beasiswa prestasi",
+      "jalur siswa berprestasi",
+      "ranking sekolah gratis pendaftaran",
+      "prestasi olahraga dan seni"
+    ],
+    "jawaban": "Siswa ranking 1 sampai 10 mendapatkan gratis uang pendaftaran. Prestasi seni dan olahraga tingkat kabupaten atau provinsi juga mendapatkan gratis uang pendaftaran."
+  },
+
+  {
+    "kategori": "hafiz_quran",
+    "keywords": [
+      "apakah hafal quran dapat beasiswa",
+      "hafal satu juz",
+      "beasiswa hafiz quran",
+      "hafal alquran gratis pendaftaran"
+    ],
+    "jawaban": "Mahasiswa yang hafal minimal 1 juz Al-Quran mendapatkan gratis uang pendaftaran."
+  },
+
+  {
+    "kategori": "roadshow",
+    "keywords": [
+      "apa keuntungan jalur roadshow",
+      "diskon roadshow",
+      "jalur roadshow sekolah",
+      "potongan spp roadshow"
+    ],
+    "jawaban": "Siswa yang mendaftar saat pelaksanaan roadshow di sekolah mendapatkan diskon uang SPP semester 1 sebesar 30 persen."
+  },
+
+  {
+    "kategori": "keluarga_pgri",
+    "keywords": [
+      "apakah keluarga pgri mendapat diskon",
+      "diskon anak pgri",
+      "potongan spp pgri",
+      "anak guru pgri",
+      "alumni pgri"
+    ],
+    "jawaban": "Anak anggota PGRI seperti dosen, guru, tenaga kependidikan, dan alumni SMA atau SMK PGRI mendapatkan diskon uang SPP Rp500.000 semester 1 sampai semester 3."
+  },
+
+  {
+    "kategori": "rekomendasi_pgri",
+    "keywords": [
+      "rekomendasi pgri",
+      "diskon rekomendasi pgri",
+      "potongan spp rekomendasi pgri"
+    ],
+    "jawaban": "Mahasiswa baru yang mendaftar melalui rekomendasi PGRI Provinsi atau Kabupaten/Kota mendapatkan diskon uang SPP Rp450.000 semester 1 sampai semester 2."
+  },
+
+  {
+    "kategori": "wali_nagari",
+    "keywords": [
+      "jalur rekomendasi wali nagari",
+      "diskon wali nagari",
+      "potongan spp wali nagari"
+    ],
+    "jawaban": "Mahasiswa baru yang mendaftar melalui rekomendasi wali nagari mendapatkan diskon uang SPP Rp400.000 semester 1 sampai semester 2."
+  },
+
+  {
+    "kategori": "jalur_undangan",
+    "keywords": [
+      "apa itu jalur undangan",
+      "jalur mahasiswa undangan",
+      "jalur undangan berprestasi"
+    ],
+    "jawaban": "Mahasiswa berprestasi secara akademik mendapatkan gratis uang pendaftaran dan diskon SPP 30 persen semester 1."
+  },
+
+  {
+    "kategori": "biaya_kuliah",
+    "keywords": [
+      "berapa biaya kuliah",
+      "berapa uang kuliah",
+      "berapa biaya semester",
+      "berapa spp",
+      "berapa biaya masuk",
+      "biaya kuliah sains data"
+    ],
+    "jawaban": "Biaya kuliah semester 1 sebesar Rp5.300.000 yang terdiri dari biaya pengembangan, orientasi dan jaket, serta SPP. Semester 2 sampai 8 sebesar Rp2.950.000."
+  },
+
+  {
+    "kategori": "cicilan_spp",
+    "keywords": [
+      "apakah spp bisa dicicil",
+      "apakah uang kuliah bisa dicicil",
+      "cicilan spp",
+      "angsuran uang kuliah"
+    ],
+    "jawaban": "Pembayaran uang SPP dapat dicicil sebanyak 4 kali dalam 1 semester."
+  },
+
+  {
+    "kategori": "syarat_pendaftaran",
+    "keywords": [
+      "apa syarat pendaftaran",
+      "syarat masuk kuliah",
+      "berkas pendaftaran",
+      "dokumen pendaftaran",
+      "persyaratan masuk"
+    ],
+    "jawaban": "Syarat pendaftaran meliputi uang pendaftaran Rp200.000, fotokopi ijazah dan nilai SMA yang dilegalisir, pas foto ukuran 3x4 dan 2x3, serta fotokopi KK dan KTP. Jika ijazah belum keluar dapat menggunakan rapor semester 1 sampai semester 12."
+  },
+
+  {
+    "kategori": "cara_pendaftaran",
+    "keywords": [
+      "bagaimana cara mendaftar",
+      "cara daftar kuliah",
+      "alur pendaftaran",
+      "tata cara pendaftaran",
+      "langkah pendaftaran"
+    ],
+    "jawaban": "Calon mahasiswa mendaftar melalui portal PMB di https://pmb.upgrisba.ac.id, mengisi biodata, mencetak kartu pendaftaran, membayar uang pendaftaran, dan melihat hasil seleksi secara online."
+  },
+
+  {
+    "kategori": "jadwal_pendaftaran",
+    "keywords": [
+      "kapan jadwal pendaftaran",
+      "gelombang pendaftaran",
+      "jadwal masuk kuliah",
+      "tanggal pendaftaran mahasiswa baru"
+    ],
+    "jawaban": "Gelombang 1 dimulai awal Januari sampai 5 April 2026. Gelombang 2 dimulai 8 April sampai awal September 2026."
+  },
+
+  {
+    "kategori": "lokasi_kampus",
+    "keywords": [
+      "dimana lokasi kampus",
+      "alamat universitas",
+      "alamat kampus",
+      "tempat pendaftaran",
+      "kampus berada dimana"
+    ],
+    "jawaban": "Kampus Universitas PGRI Sumatera Barat berada di Jalan Gunung Pangilun, Kota Padang."
+  },
+
+  {
+    "kategori": "pusat_kota",
+    "keywords": [
+      "apakah kampus strategis",
+      "kampus di pusat kota",
+      "lokasi kampus strategis"
+    ],
+    "jawaban": "Kampus berada di pusat kota sehingga mudah dijangkau mahasiswa."
+  },
+
+  {
+    "kategori": "kontak_admin",
+    "keywords": [
+      "berapa nomor admin",
+      "contact person program studi",
+      "nomor whatsapp admin",
+      "kontak program studi",
+      "siapa yang bisa dihubungi"
+    ],
+    "jawaban": "Contact person Program Studi Sains Data adalah Zulfaneti 081363387278 dan Satrio Junaidi 082389238003."
+  },
+
+  {
+    "kategori": "website_pmb",
+    "keywords": [
+      "apa website pendaftaran",
+      "link pendaftaran online",
+      "portal pmb",
+      "website pmb"
+    ],
+    "jawaban": "Pendaftaran online dapat dilakukan melalui website https://pmb.upgrisba.ac.id"
+  },
+
+  {
+    "kategori": "website_prodi",
+    "keywords": [
+      "apa website program studi",
+      "website sains data",
+      "web resmi sains data"
+    ],
+    "jawaban": "Website resmi Program Studi Sains Data dapat diakses melalui https://sainsdata.upgrisba.ac.id"
+  },
+
+  {
+    "kategori": "media_sosial",
+    "keywords": [
+      "apa instagram program studi",
+      "media sosial sains data",
+      "instagram sains data",
+      "facebook sains data",
+      "youtube sains data"
+    ],
+    "jawaban": "Media sosial Program Studi Sains Data meliputi Instagram @sainsdata.upgrisba, Facebook Sains Data Upgrisba, dan YouTube Sains Data UPGRISBA."
+  },
+
+  {
+    "kategori": "email_prodi",
+    "keywords": [
+      "apa email program studi",
+      "alamat email sains data",
+      "email prodi"
+    ],
+    "jawaban": "Email Program Studi Sains Data adalah prodisainadata.upgrisba@gmail.com"
+  },
+
+  {
+    "kategori": "jam_pelayanan",
+    "keywords": [
+      "jam pelayanan pendaftaran",
+      "jam kerja kampus",
+      "jam buka pendaftaran"
+    ],
+    "jawaban": "Pelayanan pendaftaran dibuka setiap hari kerja pukul 08.00 sampai 17.00 WIB."
+  },
+
+  {
+    "kategori": "keunikan_prodi",
+    "keywords": [
+      "apa keunggulan program studi",
+      "keunikan sains data",
+      "kenapa memilih sains data",
+      "kelebihan program studi sains data"
+    ],
+    "jawaban": "Program Studi Sains Data merupakan satu-satunya Program Studi Sains Data di Sumatera Barat, memiliki fokus pada Artificial Intelligence dan Big Data, biaya kuliah dapat dicicil, serta memiliki peluang mendapatkan beasiswa KIP-K."
+  }
+]
