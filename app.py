@@ -1,7 +1,8 @@
 import streamlit as st
 import json
-from rapidfuzz import fuzz
 import time
+import re
+from rapidfuzz import fuzz
 
 # ==================================================
 # KONFIGURASI HALAMAN
@@ -13,43 +14,48 @@ st.set_page_config(
 )
 
 # ==================================================
+# FUNCTION CLEAN TEXT
+# ==================================================
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-z0-9\s]', '', text)
+    return text
+
+# ==================================================
 # CUSTOM CSS
 # ==================================================
 st.markdown("""
 <style>
+.stApp { background-color: #eef3ff; }
 
-/* Background */
-.stApp {
-    background-color: #f4f8ff;
-}
-
-/* Judul */
 .title {
     text-align: center;
-    color: #003b8e;
-    font-size: 40px;
+    color: #002b7f;
+    font-size: 42px;
     font-weight: bold;
 }
 
-/* Subjudul */
 .subtitle {
     text-align: center;
-    color: #555;
+    color: #444;
     font-size: 18px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-/* Sidebar */
 section[data-testid="stSidebar"] {
-    background-color: #003b8e;
+    background-color: #002b7f;
+    padding: 20px;
 }
 
-/* Tombol */
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
 .stButton button {
     width: 100%;
     background-color: #0057d8;
     color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     border: none;
     padding: 10px;
     font-weight: bold;
@@ -57,50 +63,48 @@ section[data-testid="stSidebar"] {
 
 .stButton button:hover {
     background-color: #003080;
-    color: white;
 }
 
-/* CHAT USER (KANAN) */
+.chat-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #dbe4ff;
+}
+
 .user-chat {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .user-bubble {
     background-color: #0057d8;
     color: white;
-    padding: 12px 16px;
+    padding: 12px;
     border-radius: 18px 18px 0px 18px;
     max-width: 70%;
-    font-size: 15px;
 }
 
-/* CHAT BOT (KIRI) */
 .bot-chat {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .bot-bubble {
-    background-color: white;
-    color: black;
-    padding: 12px 16px;
+    background-color: #f1f5ff;
+    padding: 12px;
     border-radius: 18px 18px 18px 0px;
     max-width: 70%;
     border: 1px solid #dbe4ff;
-    font-size: 15px;
 }
 
-/* Footer */
 .footer {
     text-align: center;
     color: gray;
-    margin-top: 40px;
-    font-size: 14px;
+    margin-top: 30px;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -111,58 +115,41 @@ with open("data.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 # ==================================================
-# LOGO
-# ==================================================
-try:
-    st.image("logo.png", width=120)
-except:
-    pass
-
-# ==================================================
 # HEADER
 # ==================================================
-st.markdown(
-    "<div class='title'>🎓 Smart PMB Sains Data UPRIGSBA</div>",
-    unsafe_allow_html=True
-)
+st.markdown("<div class='title'>🎓 Smart PMB Sains Data</div>", unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <div class='subtitle'>
-    Chatbot Penerimaan Mahasiswa Baru <br>
-    Program Studi Sains Data Universitas PGRI Sumatera Barat
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class='subtitle'>
+Chatbot Penerimaan Mahasiswa Baru<br>
+Universitas PGRI Sumatera Barat
+</div>
+""", unsafe_allow_html=True)
 
 # ==================================================
 # SIDEBAR
 # ==================================================
 with st.sidebar:
-
     st.header("📌 Tentang Chatbot")
-
     st.write("""
-Chatbot ini memberikan informasi:
+Chatbot ini menjawab:
 - biaya kuliah
 - pendaftaran
 - beasiswa
 - fasilitas
 - prospek kerja
-- dosen
-- dan informasi lainnya
 """)
 
     st.markdown("---")
+    st.subheader("📞 Kontak")
+    st.write("Zulfaneti - 081363387278")
+    st.write("Satrio Junaidi - 082389238003")
 
-    st.subheader("📞 Contact Person")
-
-    st.write("👨‍🏫 Zulfaneti")
-    st.write("081363387278")
-
-    st.write("👨‍🏫 Satrio Junaidi")
-    st.write("082389238003")
+# ==================================================
+# SESSION CHAT
+# ==================================================
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
 # ==================================================
 # MENU CEPAT
@@ -172,176 +159,103 @@ st.subheader("📌 Menu Cepat")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    biaya_btn = st.button("💰 Biaya Kuliah")
-    daftar_btn = st.button("📝 Cara Daftar")
+    if st.button("💰 Biaya Kuliah"):
+        prompt = "biaya kuliah"
+    elif st.button("📝 Daftar"):
+        prompt = "cara daftar"
+    else:
+        prompt = None
 
 with col2:
-    fasilitas_btn = st.button("🏫 Fasilitas")
-    kerja_btn = st.button("💼 Prospek Kerja")
+    if st.button("🏫 Fasilitas"):
+        prompt = "fasilitas"
+    elif st.button("💼 Kerja"):
+        prompt = "prospek kerja"
 
 with col3:
-    kip_btn = st.button("🎓 Beasiswa")
-    kontak_btn = st.button("📞 Kontak")
-
-# ==================================================
-# SESSION CHAT
-# ==================================================
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# ==================================================
-# TAMPILKAN CHAT
-# ==================================================
-for message in st.session_state.messages:
-
-    if message["role"] == "user":
-
-        st.markdown(
-            f"""
-            <div class="user-chat">
-                <div class="user-bubble">
-                    👤 {message["content"]}
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    else:
-
-        st.markdown(
-            f"""
-            <div class="bot-chat">
-                <div class="bot-bubble">
-                    🎓 {message["content"]}
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    if st.button("🎓 Beasiswa"):
+        prompt = "beasiswa"
+    elif st.button("📞 Kontak"):
+        prompt = "kontak"
 
 # ==================================================
 # INPUT USER
 # ==================================================
-prompt = st.chat_input(
-    "Tanyakan sesuatu tentang PMB Sains Data..."
-)
+user_input = st.chat_input("Tanyakan tentang PMB...")
+
+if user_input:
+    prompt = user_input
 
 # ==================================================
-# MENU CEPAT
+# CHAT DISPLAY
 # ==================================================
-if biaya_btn:
-    prompt = "berapa biaya kuliah"
+st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
 
-if daftar_btn:
-    prompt = "cara pendaftaran"
+for msg in st.session_state.messages:
+    if msg["role"] == "user":
+        st.markdown(f"""
+        <div class="user-chat">
+            <div class="user-bubble">👤 {msg['content']}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown(f"""
+        <div class="bot-chat">
+            <div class="bot-bubble">🎓 {msg['content']}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-if fasilitas_btn:
-    prompt = "fasilitas kampus"
-
-if kerja_btn:
-    prompt = "prospek kerja"
-
-if kip_btn:
-    prompt = "beasiswa kipk"
-
-if kontak_btn:
-    prompt = "kontak admin"
+st.markdown("</div>", unsafe_allow_html=True)
 
 # ==================================================
-# JIKA ADA INPUT
+# CHAT PROCESSING
 # ==================================================
-if prompt:
+if 'prompt' in locals() and prompt:
 
-    pertanyaan = prompt.lower()
+    clean_prompt = clean_text(prompt)
 
-    # simpan chat user
     st.session_state.messages.append({
         "role": "user",
         "content": prompt
     })
 
-    # daftar sapaan
-    sapaan = [
-        "halo",
-        "hai",
-        "hello",
-        "hi",
-        "assalamualaikum"
-    ]
+    sapaan = ["halo", "hai", "hello", "hi", "assalamualaikum"]
 
-    # topik luar
-    outside_topics = [
-        "presiden",
-        "politik",
-        "anime",
-        "game",
-        "bola"
-    ]
+    response = None
 
-    with st.spinner("🤖 Sedang mencari informasi..."):
-
+    with st.spinner("🤖 Mencari jawaban..."):
         time.sleep(1)
 
-        # ==================================================
         # SAPAAN
-        # ==================================================
-        if pertanyaan in sapaan:
-
-            response = (
-                "Halo 👋 Selamat datang di Smart PMB "
-                "Sains Data UPRIGSBA.\n\n"
-                "Silakan tanyakan informasi mengenai "
-                "biaya kuliah, pendaftaran, fasilitas, "
-                "beasiswa, prospek kerja, dan lainnya."
-            )
-
-        # ==================================================
-        # LUAR TOPIK
-        # ==================================================
-        elif any(word in pertanyaan for word in outside_topics):
-
-            response = (
-                "Maaf, chatbot ini khusus melayani "
-                "informasi PMB Program Studi Sains Data."
-            )
+        if any(word in clean_prompt for word in sapaan):
+            response = "Halo 👋 Silakan tanyakan informasi PMB Sains Data."
 
         else:
-
             best_score = 0
             best_answer = None
 
             for item in data:
-
                 for keyword in item["keywords"]:
-
-                    score = fuzz.ratio(
-                        pertanyaan,
-                        keyword.lower()
-                    )
+                    score = fuzz.token_set_ratio(clean_prompt, keyword.lower())
 
                     if score > best_score:
-
                         best_score = score
                         best_answer = item["jawaban"]
 
-            # ==================================================
-            # BATAS AKURASI
-            # ==================================================
-            if best_score >= 80:
-
+            # THRESHOLD LEBIH REALISTIS
+            if best_score >= 60:
                 response = best_answer
-
             else:
-
                 response = (
-                    "Maaf, saya belum menemukan "
-                    "informasi yang sesuai.\n\n"
-                    "Silakan tanyakan informasi mengenai "
-                    "PMB Program Studi Sains Data."
+                    "Maaf, saya belum menemukan jawaban yang sesuai.\n\n"
+                    "Coba tanyakan tentang:\n"
+                    "- biaya kuliah\n"
+                    "- pendaftaran\n"
+                    "- beasiswa\n"
+                    "- fasilitas\n"
+                    "- prospek kerja"
                 )
 
-    # simpan jawaban bot
     st.session_state.messages.append({
         "role": "assistant",
         "content": response
@@ -353,14 +267,8 @@ if prompt:
 # FOOTER
 # ==================================================
 st.markdown("---")
-
-st.markdown(
-    """
-    <div class='footer'>
-    🎓 Smart PMB Sains Data UPRIGSBA <br>
-    Fakultas Sains dan Teknologi <br>
-    Universitas PGRI Sumatera Barat
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class='footer'>
+🎓 Smart PMB Sains Data UPRIGSBA
+</div>
+""", unsafe_allow_html=True)
