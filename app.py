@@ -2,10 +2,11 @@ import streamlit as st
 import json
 import time
 import re
-from rapidfuzz import fuzz
+import os
+from groq import Groq
 
 # ==================================================
-# KONFIGURASI HALAMAN
+# CONFIG
 # ==================================================
 st.set_page_config(
     page_title="Smart PMB Sains Data",
@@ -14,247 +15,212 @@ st.set_page_config(
 )
 
 # ==================================================
-# FUNCTION CLEAN TEXT
+# CLEAN TEXT
 # ==================================================
+
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'[^a-z0-9\s]', '', text)
     return text
 
 # ==================================================
-# CUSTOM CSS
+# LOAD DATA & GROQ SETUP
+# ==================================================
+with open("data.json", "r", encoding="utf-8") as file:
+    data = json.load(file)
+
+GROQ_API_KEY = "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"
+client = Groq(api_key=GROQ_API_KEY)
+
+# Buat System Prompt berdasarkan data.json
+system_prompt = f"""Anda adalah asisten virtual cerdas bernama 'Smart PMB Sains Data' dari Universitas PGRI Sumatera Barat.
+Tugas Anda adalah memberikan informasi tentang Penerimaan Mahasiswa Baru (PMB) prodi Sains Data.
+Jawab dengan ramah, sopan, dan gunakan bahasa Indonesia yang baik, serta gunakan emoji yang relevan.
+
+Berikut adalah informasi resmi yang bisa Anda jadikan referensi utama untuk menjawab:
+{json.dumps(data, indent=2)}
+
+Jika pengguna bertanya sesuatu yang tidak ada informasinya di atas atau di luar konteks kampus/Sains Data, sampaikan dengan sopan bahwa Anda hanya melayani pertanyaan terkait PMB Sains Data Universitas PGRI Sumatera Barat. Jangan mengarang informasi.
+"""
+
+# ==================================================
+# SESSION
+# ==================================================
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# ==================================================
+# CSS FINAL (CLEAN MODERN)
 # ==================================================
 st.markdown("""
 <style>
-.stApp { background-color: #eef3ff; }
 
-.title {
-    text-align: center;
-    color: #002b7f;
-    font-size: 42px;
-    font-weight: bold;
+/* FULL BACKGROUND */
+.stApp {
+    background: #eef3ff;
 }
 
-.subtitle {
+/* HEADER AREA */
+.header-box {
+    background: linear-gradient(135deg, #002b7f, #0057d8);
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
     text-align: center;
-    color: #444;
-    font-size: 18px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
+/* CHAT BACKGROUND (FULL, BUKAN KOTAK) */
+.chat-area {
+    background: #dfe7ff;
+    padding: 20px;
+    border-radius: 15px;
+    min-height: 65vh;
+}
+
+/* USER BUBBLE */
+.user-bubble {
+    background: #0057d8;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 15px 15px 0px 15px;
+    max-width: 70%;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+/* BOT BUBBLE */
+.bot-bubble {
+    background: white;
+    color: black;
+    padding: 10px 14px;
+    border-radius: 15px 15px 15px 0px;
+    max-width: 70%;
+    margin-bottom: 10px;
+}
+
+/* SIDEBAR (TETAP BIRU LAMA) */
 section[data-testid="stSidebar"] {
     background-color: #002b7f;
-    padding: 20px;
 }
 
 section[data-testid="stSidebar"] * {
     color: white !important;
 }
 
+/* BUTTON */
 .stButton button {
     width: 100%;
     background-color: #0057d8;
     color: white;
-    border-radius: 12px;
-    border: none;
-    padding: 10px;
-    font-weight: bold;
+    border-radius: 10px;
 }
 
-.stButton button:hover {
-    background-color: #003080;
-}
-
-.chat-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #dbe4ff;
-}
-
-.user-chat {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-
-.user-bubble {
-    background-color: #0057d8;
-    color: white;
-    padding: 12px;
-    border-radius: 18px 18px 0px 18px;
-    max-width: 70%;
-}
-
-.bot-chat {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 10px;
-}
-
-.bot-bubble {
-    background-color: #f1f5ff;
-    padding: 12px;
-    border-radius: 18px 18px 18px 0px;
-    max-width: 70%;
-    border: 1px solid #dbe4ff;
-}
-
+/* FOOTER */
 .footer {
     text-align: center;
     color: gray;
-    margin-top: 30px;
+    margin-top: 20px;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
 # ==================================================
-# LOAD DATA JSON
-# ==================================================
-with open("data.json", "r", encoding="utf-8") as file:
-    data = json.load(file)
-
-# ==================================================
-# HEADER
-# ==================================================
-st.markdown("<div class='title'>🎓 Smart PMB Sains Data</div>", unsafe_allow_html=True)
-
-st.markdown("""
-<div class='subtitle'>
-Chatbot Penerimaan Mahasiswa Baru<br>
-Universitas PGRI Sumatera Barat
-</div>
-""", unsafe_allow_html=True)
-
-# ==================================================
-# SIDEBAR
+# SIDEBAR (TETAP SEPERTI AWAL)
 # ==================================================
 with st.sidebar:
+
     st.header("📌 Tentang Chatbot")
+
     st.write("""
-Chatbot ini menjawab:
+Chatbot ini memberikan informasi:
 - biaya kuliah
 - pendaftaran
 - beasiswa
 - fasilitas
 - prospek kerja
+- dosen
 """)
 
     st.markdown("---")
-    st.subheader("📞 Kontak")
-    st.write("Zulfaneti - 081363387278")
-    st.write("Satrio Junaidi - 082389238003")
+
+    st.subheader("📞 Contact Person")
+    st.write("👨‍🏫 Zulfaneti - 081363387278")
+    st.write("👨‍🏫 Satrio Junaidi - 082389238003")
 
 # ==================================================
-# SESSION CHAT
+# LAYOUT 3 KOLOM
 # ==================================================
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+col1, col2, col3 = st.columns([1, 3, 1])
 
-# ==================================================
-# MENU CEPAT
-# ==================================================
-st.subheader("📌 Menu Cepat")
-
-col1, col2, col3 = st.columns(3)
-
+# ================= LEFT =================
 with col1:
-    if st.button("💰 Biaya Kuliah"):
-        prompt = "biaya kuliah"
-    elif st.button("📝 Daftar"):
-        prompt = "cara daftar"
-    else:
-        prompt = None
+    if os.path.exists("logo.png"):
+        st.image("logo.png", width=120)
 
+# ================= CENTER =================
 with col2:
-    if st.button("🏫 Fasilitas"):
-        prompt = "fasilitas"
-    elif st.button("💼 Kerja"):
-        prompt = "prospek kerja"
 
+    # HEADER BOX (GRADIENT)
+    st.markdown("""
+    <div class='header-box'>
+        <h2>🎓 Smart PMB Sains Data</h2>
+        <p>Universitas PGRI Sumatera Barat</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # CHAT AREA (FULL BACKGROUND, BUKAN KOTAK PUTIH)
+    st.markdown("<div class='chat-area'>", unsafe_allow_html=True)
+
+    for msg in st.session_state.messages:
+        if msg["role"] == "user":
+            st.markdown(f"<div class='user-bubble'>👤 {msg['content']}</div>", unsafe_allow_html=True)
+        else:
+            st.markdown(f"<div class='bot-bubble'>🎓 {msg['content']}</div>", unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # INPUT CHAT
+    user_input = st.chat_input("Tanyakan tentang PMB Sains Data...")
+
+# ================= RIGHT =================
 with col3:
-    if st.button("🎓 Beasiswa"):
-        prompt = "beasiswa"
-    elif st.button("📞 Kontak"):
-        prompt = "kontak"
+    st.markdown("### 📌 Menu")
+    st.write("💰 Biaya Kuliah")
+    st.write("📝 Pendaftaran")
+    st.write("🎓 Beasiswa")
+    st.write("🏫 Fasilitas")
+    st.write("💼 Prospek Kerja")
 
 # ==================================================
-# INPUT USER
+# CHAT LOGIC
 # ==================================================
-user_input = st.chat_input("Tanyakan tentang PMB...")
-
 if user_input:
-    prompt = user_input
-
-# ==================================================
-# CHAT DISPLAY
-# ==================================================
-st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
-
-for msg in st.session_state.messages:
-    if msg["role"] == "user":
-        st.markdown(f"""
-        <div class="user-chat">
-            <div class="user-bubble">👤 {msg['content']}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown(f"""
-        <div class="bot-chat">
-            <div class="bot-bubble">🎓 {msg['content']}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# ==================================================
-# CHAT PROCESSING
-# ==================================================
-if 'prompt' in locals() and prompt:
-
-    clean_prompt = clean_text(prompt)
 
     st.session_state.messages.append({
         "role": "user",
-        "content": prompt
+        "content": user_input
     })
 
-    sapaan = ["halo", "hai", "hello", "hi", "assalamualaikum"]
-
-    response = None
-
-    with st.spinner("🤖 Mencari jawaban..."):
-        time.sleep(1)
-
-        # SAPAAN
-        if any(word in clean_prompt for word in sapaan):
-            response = "Halo 👋 Silakan tanyakan informasi PMB Sains Data."
-
-        else:
-            best_score = 0
-            best_answer = None
-
-            for item in data:
-                for keyword in item["keywords"]:
-                    score = fuzz.token_set_ratio(clean_prompt, keyword.lower())
-
-                    if score > best_score:
-                        best_score = score
-                        best_answer = item["jawaban"]
-
-            # THRESHOLD LEBIH REALISTIS
-            if best_score >= 60:
-                response = best_answer
-            else:
-                response = (
-                    "Maaf, saya belum menemukan jawaban yang sesuai.\n\n"
-                    "Coba tanyakan tentang:\n"
-                    "- biaya kuliah\n"
-                    "- pendaftaran\n"
-                    "- beasiswa\n"
-                    "- fasilitas\n"
-                    "- prospek kerja"
-                )
+    with st.spinner("💬 Bot sedang mengetik..."):
+        # Menyusun riwayat percakapan untuk dikirim ke Groq
+        messages_for_groq = [{"role": "system", "content": system_prompt}]
+        
+        # Ambil 10 pesan terakhir agar konteks tidak terlalu panjang
+        for msg in st.session_state.messages[-10:]:
+            messages_for_groq.append({"role": msg["role"], "content": msg["content"]})
+            
+        try:
+            chat_completion = client.chat.completions.create(
+                messages=messages_for_groq,
+                model="llama-3.1-8b-instant", # Model LLM dari Groq yang lebih baru dan didukung
+                temperature=0.3,
+                max_tokens=1024,
+            )
+            response = chat_completion.choices[0].message.content
+        except Exception as e:
+            response = f"Maaf 😅 Terjadi kesalahan saat menghubungi server AI: {e}"
 
     st.session_state.messages.append({
         "role": "assistant",
@@ -262,13 +228,3 @@ if 'prompt' in locals() and prompt:
     })
 
     st.rerun()
-
-# ==================================================
-# FOOTER
-# ==================================================
-st.markdown("---")
-st.markdown("""
-<div class='footer'>
-🎓 Smart PMB Sains Data UPRIGSBA
-</div>
-""", unsafe_allow_html=True)
